@@ -1,7 +1,8 @@
 from odoo import models,fields
 
 class ModelE(models.Model):
-    _name = False
+    _name='model.e'
+    name = fields.Char()
     date_av = fields.Date()
     isShadow = fields.Boolean()
     orientation = fields.Selection([

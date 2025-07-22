@@ -1,0 +1,27 @@
+<odoo>
+
+<record id = "model_e_view_tree" model="ir.ui.view">
+<field name="name">model e tree</field>
+<field name="model">model.e</field>
+<field name="arch" type="xml">
+<list>
+<field name="name"/>
+<field name="date_av"/>
+<field name="isShadow" optional = "1"/>
+<field name="orientation"/>
+</list>
+</field>
+</record>
+
+<record id= "mode_e_action" model ="ir.actions.act_window">
+    <field name="name">model e</field>
+    <field name="res_model">model.e</field>
+</record>
+
+<menuitem 
+    id="model_es_menu" 
+    name="Model Es"
+    parent="model_e_menu" 
+    action= "mode_e_action"/>
+
+</odoo>
