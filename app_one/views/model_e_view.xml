@@ -33,7 +33,7 @@
             <field name="isShadow"/>
             </group>
         <group string="Display Options">
-            <field name="orientation"/>
+            <field name="orientation" required="1"/>
             </group>
       </group>
     </sheet>
