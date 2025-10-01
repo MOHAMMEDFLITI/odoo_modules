@@ -3,7 +3,7 @@
 id="real_estate_root_menu" 
 name="Real Estate" />
 <menuitem 
-id="model_e_menu" 
-name="model E" 
+id="property_menu" 
+name="Property" 
 parent="real_estate_root_menu" />
 </odoo>
