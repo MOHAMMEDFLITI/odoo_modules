@@ -4,7 +4,7 @@
 <field name="name">model e tree</field>
 <field name="model">model.e</field>
 <field name="arch" type="xml">
-<list>
+<list multi_edit="1" create="true" edit="true" delete="1">
 <field name="ref"/>
 <field name="date_av"/>
 <field name="isShadow" optional = "1"/>
@@ -17,7 +17,7 @@
 <field name="name">model e foem</field>
 <field name="model">model.e</field>
 <field name="arch" type="xml">
-<form>
+<form create="true" edit="true" delete="0">
   <sheet>
   <div class="oe_title">
   <label for = "ref"/>

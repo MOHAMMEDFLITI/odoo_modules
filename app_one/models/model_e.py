@@ -19,6 +19,10 @@ class ModelE(models.Model):
 # 3- databaser tier for exemple: 
 # required=True in fields in logic and database tier
 
+    _sql_constraints = [
+        ('unique_ref','unique(ref)','this ref is exist'),
+    ]
+
     @api.constrains('date_av')
     def _check_date_av(self):
         for record in self:
@@ -26,6 +30,26 @@ class ModelE(models.Model):
                 raise models.ValidationError("The date cannot be in the paste.")
                 #print("The date cannot be in the paste.")
 
-    _sql_constraints = [
-        ('unique_ref','unique(ref)','this ref is exist'),
-    ]
+    @api.model_create_multi
+    def create(self,vals):
+        print("in create method")
+        res = super(ModelE,self).create(vals)
+        return res
+    
+    def search(self, args, offset=0, limit=None, order=None, count=False, access_rights_uid=None):
+        print("in search method")
+        res = super(ModelE, self)._search(args, offset=offset, limit=limit, order=order, count=count, access_rights_uid=access_rights_uid)
+        return res
+
+    
+
+    def write(self,vals):
+        print("in write method")
+        res = super(ModelE,self).write(vals)
+        return res
+    
+
+    def unlink(self):
+        print("in unlink method")
+        res = super(ModelE,self).unlink()
+        return res
