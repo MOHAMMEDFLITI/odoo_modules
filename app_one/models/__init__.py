@@ -5,3 +5,5 @@ from . import model_d
 from . import model_z
 from . import model_e
 from . import property
+from . import owner
+from . import tag
