@@ -21,6 +21,13 @@ class Property(models.Model):
         ('east','East'),
         ('west','West'),
     ], default='north')
+
+    state = fields.Selection([
+        ('draft','Draft'),
+        ('pending','Pending'),
+        ('sold','Sold'),
+    ], default='draft')
+
     owner_id = fields.Many2one("owner")
     tag_ids = fields.Many2many("tag")
 
@@ -57,3 +64,19 @@ class Property(models.Model):
         print("in unlink method")
         res = super(Property,self).unlink()
         return res
+    
+
+    def action_draft(self):
+        for rec in self:
+            print("in action_draft method")
+            rec.state = 'draft'
+
+    def action_pending(self):
+        for rec in self:
+            print("in action_pending method")
+            rec.write({'state':'pending'})
+
+    def action_sold(self):
+        for rec in self:
+            print("in action_sold method")
+            rec.state = 'sold'

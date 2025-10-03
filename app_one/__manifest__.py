@@ -1,7 +1,7 @@
 {
-     'name': 'mirath app',
+     'name': 'Real Estate',
      'author' : 'mohammed FLITI ',
-     'category': 'fikeh',
+     'category': 'realty',
      'version': '1.0',
      'depends': ['base',],
      'data': [
