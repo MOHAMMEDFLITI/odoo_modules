@@ -9,6 +9,7 @@ class Property(models.Model):
     date_availability = fields.Date()
     expected_price = fields.Float(digits=(0,5))
     sold_price = fields.Float()
+    diff = fields.Float(compute='_compute_diff', store=True ,readonly=0)
     bedrooms = fields.Integer()
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -80,3 +81,34 @@ class Property(models.Model):
         for rec in self:
             print("in action_sold method")
             rec.state = 'sold'
+
+    @api.depends('expected_price','sold_price','owner_id.phone')
+    # depends on simple fields (views fields or model fields) or relational fields (many2one, many2many, one2many)
+    def _compute_diff(self):
+        for rec in self:
+            print("in _compute_diff method")    
+            rec.diff = rec.expected_price - rec.sold_price
+
+    @api.onchange('garden')
+    # onchange works only in views fields
+    def _onchange_garden(self):
+        for rec in self:
+            print("in _onchange_garden method")
+            if rec.garden == False:
+                rec.garden_area = 0
+
+    @api.onchange('bedrooms')
+    def _onchange_bedrooms(self):
+        for rec in self:
+            print("in _onchange_bedrooms method")
+            if rec.bedrooms < 0:
+                return {
+                    'warning':{
+                        'title':'wrong value',
+                        'message':'the number of bedrooms cannot be negative',
+                        'type':'notification'
+                    },
+                    'value':{
+                        'bedrooms':0
+                    }
+                }

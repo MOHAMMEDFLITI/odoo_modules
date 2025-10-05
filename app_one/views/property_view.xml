@@ -4,7 +4,7 @@
 <field name="name">property tree</field>
 <field name="model">property</field>
 <field name="arch" type="xml">
-<list multi_edit="1" create="true" edit="true" delete="1">
+<list multi_edit="1" create="true" edit="true" delete="1" class ="header_custom">
 <field name="name"/>
 <field name="descreption"/>
 <field name="postcode" optional = "1"/>
@@ -12,6 +12,7 @@
 <field name="date_availability"/>
 <field name="expected_price"/>
 <field name="sold_price"/>
+<field name="diff"/>
 <field name="bedrooms"/>
 <field name="tag_ids"/>
 <field name="living_area"/>
@@ -52,13 +53,13 @@
             <field name="date_availability"/>
             <field name="owner_id"/>
             <field name="bedrooms"/>
-           
             <field name="living_area"/>
             <field name="tag_ids" widget="many2many_tags"/>
         </group>
         <group string="Additional Information">
             <field name="expected_price"/>
             <field name="sold_price"/>
+            <field name="diff"/>
             <field name="garden_orientation" required="1"/>
             <field name="garden_area"/>
             <field name="garden"/>
