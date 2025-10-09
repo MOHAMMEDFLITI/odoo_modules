@@ -2,11 +2,12 @@ from odoo import models,fields,api
 
 class Property(models.Model):
     _name='property'
-
+    _description='Property record'
+    _inherit = ['mail.thread','mail.activity.mixin']
     name = fields.Char(required=True,default="new",size=5)
-    descreption = fields.Text()
+    descreption = fields.Text(tracking=True)
     postcode = fields.Char(required=True)
-    date_availability = fields.Date()
+    date_availability = fields.Date(tracking=True)
     expected_price = fields.Float(digits=(0,5))
     sold_price = fields.Float()
     diff = fields.Float(compute='_compute_diff', store=True ,readonly=0)
@@ -23,6 +24,8 @@ class Property(models.Model):
         ('west','West'),
     ], default='north')
 
+    line_ids = fields.One2many('property.line','property_id')
+    other_line = fields.One2many('property.other.line','propertyy_id')
     state = fields.Selection([
         ('draft','Draft'),
         ('pending','Pending'),
@@ -30,9 +33,13 @@ class Property(models.Model):
     ], default='draft')
 
     owner_id = fields.Many2one("owner")
+    owner_adress = fields.Char(related='owner_id.adress',store=True, readonly=0) # must be same field type as the field in the related model
+    owner_phone = fields.Char(related='owner_id.phone',store=True)
     tag_ids = fields.Many2many("tag")
 
-    _sql_constraints = [
+    # if you have already record that disrespect the constraint so this constraint will not be applied and to fix it you have to delete the record that disrespect the constraint
+    # if you have already app and you want to do constraint so use the other level of constraint
+    _sql_constraints = [ 
         ('unique_name','unique(name)','this name is exist'),
     ]
 
@@ -112,3 +119,27 @@ class Property(models.Model):
                         'bedrooms':0
                     }
                 }
+            
+
+
+class PropertyLine(models.Model):
+    _name='property.line'
+    _description='Property line record'
+
+    property_id=fields.Many2one('property')
+    description=fields.Char()
+    area=fields.Float()
+    price=fields.Float()
+    date=fields.Date()
+
+class PropertyOtherLine(models.Model):
+    _name='property.other.line'
+
+
+    propertyy_id = fields.Many2one('property')
+    name = fields.Char()
+    value = fields.Float()
+    yes_no = fields.Boolean()
+    notes = fields.Text()
+
+
