@@ -1,0 +1,72 @@
+<odoo>
+
+<record id = "building_view_tree" model="ir.ui.view">
+<field name="name">building tree</field>
+<field name="model">building</field>
+<field name="arch" type="xml">
+<list >
+<field name="no"/>
+<field name="code"/>
+<field name="description"/>
+<field name="name"/>
+<field name="active"/>
+</list>
+</field>
+</record>
+
+<record id = "building_view_form" model="ir.ui.view">
+<field name="name">building form</field>
+<field name="model">building</field>
+<field name="arch" type="xml">
+<form create="true" edit="true" delete="0">
+  <sheet>
+    <group>
+        <group >
+           <field name="name"/>
+            <field name="no"/>
+        </group>
+        <group >
+            <field name="code"/>
+            <field name="active"/>
+            </group>
+        <group >
+            <field name="description"/>
+            </group>
+      </group>
+    </sheet>
+    <chatter class="oe_chatter">
+    <field name="message_follower_ids"/>
+    <field name="activity_ids"/>
+    <field name="message_ids"/>
+  </chatter>
+</form>
+</field>
+</record>
+
+<record id = "building_view_search" model="ir.ui.view">
+<field name="name">building search</field>
+<field name="model">building</field>
+<field name="arch" type="xml">
+<search>
+<field name="no"/> 
+<field name="code"/>
+</search>
+</field>
+</record>
+
+<record id= "building_action" model ="ir.actions.act_window">
+    <field name="name">building</field>
+    <field name="res_model">building</field>
+</record>
+
+<menuitem 
+    id="building_menu" 
+    name="building"
+    parent="property_menu" 
+    action= "building_action"/>
+
+</odoo>
+
+
+
+ <!-- Multicursor Editing (Change All Occurrences) :  Ctrl + Shift + L -->
