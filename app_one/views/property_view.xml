@@ -126,9 +126,19 @@
 </record>
 
 <record id= "propertie_action" model ="ir.actions.act_window">
-    <field name="name">property</field>
+    <field name="name">property</field> <!--  name as you want -->
     <field name="res_model">property</field>
 </record>
+
+<!-- <record id= "property_closed_server_action" model ="ir.actions.server">  <!-- also u can Add Server Actions from the UI -->
+    <field name="name">closed</field>
+    <field name="model_id" ref="model_property"/> <!--  model_modelName -->
+    <field name="binding_model_id" ref ="model_property"/> <!-- to add it on dropdown list also linking server action with model -->
+    <field name="state">code</field>
+    <field name="code">
+        action = records.action_closed()
+    </field>
+</record> -->
 
 <menuitem 
     id="properties_menu" 

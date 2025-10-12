@@ -30,6 +30,7 @@ class Property(models.Model):
         ('draft','Draft'),
         ('pending','Pending'),
         ('sold','Sold'),
+        ('closed','Closed'),
     ], default='draft')
 
     owner_id = fields.Many2one("owner")
@@ -88,6 +89,10 @@ class Property(models.Model):
         for rec in self:
             print("in action_sold method")
             rec.state = 'sold'
+            
+    def action_closed(self):
+        for rec in self:
+            rec.state = 'closed'
 
     @api.depends('expected_price','sold_price','owner_id.phone')
     # depends on simple fields (views fields or model fields) or relational fields (many2one, many2many, one2many)
