@@ -8,6 +8,8 @@ class Property(models.Model):
     descreption = fields.Text(tracking=True)
     postcode = fields.Char(required=True)
     date_availability = fields.Date(tracking=True)
+    expected_selling_date = fields.Date(required=True)
+    is_late = fields.Boolean()
     expected_price = fields.Float(digits=(0,5))
     sold_price = fields.Float()
     diff = fields.Float(compute='_compute_diff', store=True ,readonly=0)
@@ -56,9 +58,9 @@ class Property(models.Model):
         res = super(Property,self).create(vals)
         return res
     
-    def search(self, args, offset=0, limit=None, order=None, count=False, access_rights_uid=None):
+    def search(self, args, offset=0, limit=None, order=None): # there is no parameter called count anymore (Odoo 18 removed it) also access_rights is removed
         print("in search method")
-        res = super(Property, self)._search(args, offset=offset, limit=limit, order=order, count=count, access_rights_uid=access_rights_uid)
+        res = super(Property, self).search(args, offset=offset, limit=limit, order=order) # super.search([]) → returns a recordset  ||  super._search([]) → returns a list of IDs
         return res
 
     
@@ -93,6 +95,18 @@ class Property(models.Model):
     def action_closed(self):
         for rec in self:
             rec.state = 'closed'
+
+    def check_expected_selling_date(self):
+      # print(self)  #property()
+        property_ids = self.search([])
+        for rec in property_ids:
+            #print(rec) # 1 3 8 if using _search else return objects
+            #print(rec.expected_selling_date) # 2025-10-05 and so on
+            if rec.state != 'sold':
+                if rec.expected_selling_date and rec.expected_selling_date < fields.Date.today():
+                    rec.is_late = True
+
+                
 
     @api.depends('expected_price','sold_price','owner_id.phone')
     # depends on simple fields (views fields or model fields) or relational fields (many2one, many2many, one2many)
