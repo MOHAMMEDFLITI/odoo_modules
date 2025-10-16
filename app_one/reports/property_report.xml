@@ -54,13 +54,30 @@
                          </thead>
                          <tbody>
                                 <td>owner</td>
-                                <td> <t t-esc ="rec.owner_id.name"/> </td>
+                                <td> <t t-esc ="rec.owner_id.name"/> </td> <!-- or using <span t-field ="rec.owner_id"/> : it's usefull on £ 546 for exemple-->
                                 <td>phone</td>
                                 <td><t t-esc ="rec.owner_phone"/></td>
                          </tbody>
                     </table>
-                    <br/t>
-                    
+                    <br/>
+                    <table>
+                        <thead>
+                             <th >Description</th>
+                             <th >Area</th>
+                             <th >Date</th>
+                             <th >Price</th>
+                         </thead>
+                         <tbody>
+                            <t t-foreach="docs.line_ids" t-as="line">
+                              <tr>
+                                <td> <t t-esc ="line.description"/> </td>
+                                <td><t t-esc ="line.area"/></td>
+                                <td><t t-esc ="line.date"/></td> <!--or using <span t-field ="line.date"/> -->
+                                <td><t t-esc ="line.price"/></td>
+                                </tr>
+                            </t>
+                         </tbody>
+                    </table>
                 </t>
             </t>
         </t>
