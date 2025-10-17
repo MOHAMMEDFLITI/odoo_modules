@@ -19,4 +19,4 @@ class SaleOrder(models.Model):
 
 
 
-# TODO : fixing "upgrade odoo server"  + xml view
+# TODO : fixing "upgrade odoo server"  + xml view + add to do task 

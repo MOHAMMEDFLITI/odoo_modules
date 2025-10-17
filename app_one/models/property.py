@@ -139,6 +139,17 @@ class Property(models.Model):
                     }
                 }
             
+    def action(self):
+        #print(self.env.user.name)
+        #print(self.env.company.name)
+        #print(self.env.context)
+        #print(self.env.context.get('tz'))
+        # print(self.env.uid)
+        # print(self.env.cr)
+        #print(self.env['owner'].search([]))
+        print(self.env['owner'].create({'name':'owner from env','phone':'123456'}))
+
+            
 
 
 class PropertyLine(models.Model):
