@@ -7,6 +7,7 @@ class Property(models.Model):
     name = fields.Char(required=True,default="new",size=5)
     descreption = fields.Text(tracking=True)
     postcode = fields.Char(required=True)
+    ref = fields.Char(default='nv',readonly=True)
     date_availability = fields.Date(tracking=True)
     expected_selling_date = fields.Date(required=True)
     is_late = fields.Boolean()
@@ -148,6 +149,15 @@ class Property(models.Model):
         # print(self.env.cr)
         #print(self.env['owner'].search([]))
         print(self.env['owner'].create({'name':'owner from env','phone':'123456'}))
+
+    
+    @api.model
+    def create(self,vals):
+        res = super(Property,self).create(vals)
+        if res.ref == 'nv':
+            seq = self.env['ir.sequence'].next_by_code('property_seq')
+            res.ref = seq
+        return res
 
             
 

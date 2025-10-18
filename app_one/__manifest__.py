@@ -14,6 +14,7 @@
          'views/res_partner_view.xml',
          'views/building.xml',
          'reports/property_report.xml',
+         'data/sequence.xml',
     ],
     'assets': {
         'web.assets_backend': [
