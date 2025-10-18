@@ -80,21 +80,22 @@ class Property(models.Model):
 
     def action_draft(self):
         for rec in self:
-            print("in action_draft method")
+            rec.create_history_record(rec.state, 'draft')
             rec.state = 'draft'
 
     def action_pending(self):
         for rec in self:
-            print("in action_pending method")
+            rec.create_history_record(rec.state, 'pending')
             rec.write({'state':'pending'})
 
     def action_sold(self):
         for rec in self:
-            print("in action_sold method")
+            rec.create_history_record(rec.state, 'sold')
             rec.state = 'sold'
             
     def action_closed(self):
         for rec in self:
+            rec.create_history_record(rec.state, 'closed')
             rec.state = 'closed'
 
     def check_expected_selling_date(self):
@@ -158,6 +159,15 @@ class Property(models.Model):
             seq = self.env['ir.sequence'].next_by_code('property_seq')
             res.ref = seq
         return res
+    
+    def create_history_record(self, old_state, new_state):
+
+            self.env['property.history'].create({
+                'user_id': self.env.uid,
+                'property_id': self.id,
+                'old_state': old_state,
+                'new_state': new_state,
+            })
 
             
 

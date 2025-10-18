@@ -6,6 +6,8 @@
      'depends': ['base','sale_management','mail','contacts'],
      'data': [
          'security/ir.model.access.csv',
+         'data/sequence.xml',
+         'reports/property_report.xml',
          'views/base_menu.xml',
          'views/property_view.xml',
          'views/owner_view.xml',
@@ -13,8 +15,10 @@
          'views/sale_order_view.xml',
          'views/res_partner_view.xml',
          'views/building.xml',
-         'reports/property_report.xml',
-         'data/sequence.xml',
+         'views/property_history_view.xml',
+         
+         
+         
     ],
     'assets': {
         'web.assets_backend': [
