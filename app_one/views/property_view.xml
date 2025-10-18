@@ -39,7 +39,7 @@
   <header>
 
     <button name="action" string="Action" type="object" class="btn-primary"/>
-    <button name="action_draft" string="Set to Draft" type="object" class="btn-primary" invisible="state =='draft'"/>
+    <button name="action_draft" string="Set to Draft" type="object" class="btn-primary" invisible=" state in ('draft','closed')"/>
     <button name="action_pending" string="Set to Pending" type="object" class="btn-secondary" invisible="state  !='draft' "/> 
     <button name="action_sold" string="Set to Sold" type="object" class="btn-success" invisible="state !='pending' "/>   
          <field name="state" widget="statusbar" statusbar="draft,pending,sold" options="{'clickable':0}"/>
@@ -51,38 +51,38 @@
     </h1>
   <label for = "name"/>
     <h3>
-        <field name="name"/>
+        <field name="name" readonly = "state == 'closed'"/>
     </h3>
   </div>
     <group>
         <group string="General Information">
             <field name="descreption"/>
-            <field name="postcode"/>
-            <field name="date_availability"/>
-            <field name="date_availability"/>
-            <field name="expected_selling_date"/>
-            <field name="is_late"/>
-            <field name="owner_id"/>
-            <field name="owner_adress"/>
-            <field name="owner_phone"/>
-            <field name="bedrooms"/>
-            <field name="living_area"/>
-            <field name="tag_ids" widget="many2many_tags"/>
+            <field name="postcode" readonly = "state == 'closed'"/>
+            <field name="date_availability" readonly = "state == 'closed'"/>
+            <field name="date_availability" readonly = "state == 'closed'"/>
+            <field name="expected_selling_date" readonly = "state == 'closed'"/>
+            <field name="is_late" readonly = "state == 'closed'"/>
+            <field name="owner_id" readonly = "state == 'closed'"/>
+            <field name="owner_adress" readonly = "state == 'closed'"/>
+            <field name="owner_phone" readonly = "state == 'closed'"/>
+            <field name="bedrooms" readonly = "state == 'closed'"/>
+            <field name="living_area" readonly = "state == 'closed'"/>
+            <field name="tag_ids" widget="many2many_tags" readonly = "state == 'closed'"/>
         </group>
         <group string="Additional Information">
-            <field name="expected_price"/>
-            <field name="sold_price"/>
-            <field name="diff"/>
-            <field name="garden_orientation" required="1"/>
-            <field name="garden_area"/>
-            <field name="garden"/>
-            <field name="garage"/>
-            <field name="facades"/>
+            <field name="expected_price" readonly = "state == 'closed'"/>
+            <field name="sold_price" readonly = "state == 'closed'"/>
+            <field name="diff" readonly = "state == 'closed'"/>
+            <field name="garden_orientation" required="1" readonly = "state == 'closed'"/>
+            <field name="garden_area" readonly = "state == 'closed'"/>
+            <field name="garden" readonly = "state == 'closed'"/>
+            <field name="garage" readonly = "state == 'closed'"/>
+            <field name="facades" readonly = "state == 'closed'"/>
             </group>
       </group>
       <notebook>
         <page string="Bedrooms">
-            <field name="line_ids">
+            <field name="line_ids" readonly = "state == 'closed'">
                 <list editable="bottom">
                     <field name="description"/>
                     <field name="area"/>
@@ -98,7 +98,7 @@
             </field>
         </page>
         <page string="others">
-            <field name="other_line">
+            <field name="other_line" readonly = "state == 'closed'">
                 <list >
                     <field name="name"/>
                     <field name="notes"/>
