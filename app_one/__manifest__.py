@@ -1,5 +1,5 @@
 {
-     'name': 'Real Estate',
+     'name': 'app_one',
      'author' : 'mohammed FLITI ',
      'category': 'realty',
      'version': '1.0',
@@ -16,6 +16,7 @@
          'views/res_partner_view.xml',
          'views/building.xml',
          'views/property_history_view.xml',
+         'views/upgrade_app_view.xml',
          
          
          

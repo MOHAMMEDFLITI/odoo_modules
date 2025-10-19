@@ -1,0 +1,21 @@
+<odoo>
+
+
+    <record id="upgrade_app_action" model="ir.actions.server">
+        <field name="name">upgrade app_one</field>
+        <field name="model_id" ref="base.model_ir_module_module" />
+        <field name="state">code</field>
+        <field name="code">
+app = env["ir.module.module"].search([("name", "=", "app_one")])
+if app:
+    app.button_upgrade()
+else:
+    print("Module 'app_one' not found.")
+        </field>
+    </record>
+    <menuitem
+        id="upgrade_app_one_menu"
+        name="upgrade App One"
+        parent="upgrade_app_menu"
+        action="upgrade_app_action" />
+</odoo>

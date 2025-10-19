@@ -1,55 +1,54 @@
 <odoo>
 
-<record id = "owner_view_tree" model="ir.ui.view">
-<field name="name">owner tree</field>
-<field name="model">owner</field>
-<field name="arch" type="xml">
-<list >
-<field name="name"/>
-<field name="phone"/>
-<field name="adress"/>
-<field name="property_ids"/>
-</list>
-</field>
-</record>
+    <record id="owner_view_tree" model="ir.ui.view">
+        <field name="name">owner tree</field>
+        <field name="model">owner</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="phone" />
+                <field name="adress" />
+                <field name="property_ids" />
+            </list>
+        </field>
+    </record>
 
-<record id = "owner_view_form" model="ir.ui.view">
-<field name="name">owner form</field>
-<field name="model">owner</field>
-<field name="arch" type="xml">
-<form create="true" edit="true" delete="0">
-  <sheet>
-  <div class="oe_title">
-  <label for = "name"/>
-    <h2>
-        <field name="name"/>
-    </h2>
-  </div>
-    <group>
-        <group string="General Information">
-            <field name="phone"/>
-            <field name="adress"/>
-        </group>
-        <group >
-            <field name="property_ids" widget = "many2many_tags"/>
-             </group>
-      </group>
-    </sheet>
-</form>
-</field>
-</record>
+    <record id="owner_view_form" model="ir.ui.view">
+        <field name="name">owner form</field>
+        <field name="model">owner</field>
+        <field name="arch" type="xml">
+            <form create="true" edit="true" delete="0">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h2>
+                            <field name="name" />
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="General Information">
+                            <field name="phone" />
+                            <field name="adress" />
+                        </group>
+                        <group>
+                            <field name="property_ids" widget="many2many_tags" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
 
+    <record id="owner_action" model="ir.actions.act_window">
+        <field name="name">owner</field>
+        <field name="res_model">owner</field>
+    </record>
 
-<record id= "owner_action" model ="ir.actions.act_window">
-    <field name="name">owner</field>
-    <field name="res_model">owner</field>
-</record>
-
-<menuitem 
-    id="owners_menu" 
-    name="owners"
-    parent="configuration_menu" 
-    action= "owner_action"/>
+    <menuitem
+        id="owners_menu"
+        name="owners"
+        parent="configuration_menu"
+        action="owner_action" />
 
 </odoo>

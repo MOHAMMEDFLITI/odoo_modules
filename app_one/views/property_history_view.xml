@@ -1,52 +1,51 @@
 <odoo>
 
-<record id = "property_history_view_tree" model="ir.ui.view">
-<field name="name">property history tree</field>
-<field name="model">property.history</field>
-<field name="arch" type="xml">
-<list create="0" edit="0" delete="0" >
-<field name="user_id"/>
-<field name="property_id"/>
-<field name="old_state"/>
-<field name="new_state"/>
+    <record id="property_history_view_tree" model="ir.ui.view">
+        <field name="name">property history tree</field>
+        <field name="model">property.history</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0">
+                <field name="user_id" />
+                <field name="property_id" />
+                <field name="old_state" />
+                <field name="new_state" />
 
-</list>
-</field>
-</record>
+            </list>
+        </field>
+    </record>
 
-<record id = "property_history_view_form" model="ir.ui.view">
-<field name="name">property history form</field>
-<field name="model">property.history</field>
-<field name="arch" type="xml">
-<form create="0" edit="0" delete="0">
-  <sheet>
-    <group>
-        <group >
-            <field name="user_id"/>
-            <field name="property_id" />
-        </group>
-        <group >
-            <field name="old_state"/>
-            <field name="new_state"/>
-            </group>
-      </group>
-    </sheet>
-</form>
-</field>
-</record>
-
-
-<record id= "propertie_history_action" model ="ir.actions.act_window">
-    <field name="name">property history</field> <!--  name as you want -->
-    <field name="res_model">property.history</field>
-</record>
+    <record id="property_history_view_form" model="ir.ui.view">
+        <field name="name">property history form</field>
+        <field name="model">property.history</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="user_id" />
+                            <field name="property_id" />
+                        </group>
+                        <group>
+                            <field name="old_state" />
+                            <field name="new_state" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
 
 
-<menuitem 
-    id="properties_history_menu" 
-    name="History"
-    parent="property_menu" 
-    action= "propertie_history_action"/>
+    <record id="propertie_history_action" model="ir.actions.act_window">
+        <field name="name">property history</field> <!--  name as you want -->
+        <field name="res_model">property.history</field>
+    </record>
+
+
+    <menuitem
+        id="properties_history_menu"
+        name="History"
+        parent="property_menu"
+        action="propertie_history_action" />
 
 </odoo>
-
