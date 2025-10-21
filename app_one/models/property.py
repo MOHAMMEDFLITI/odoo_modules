@@ -160,14 +160,23 @@ class Property(models.Model):
             res.ref = seq
         return res
     
-    def create_history_record(self, old_state, new_state):
+    def create_history_record(self, old_state, new_state,reason='nothing'):
 
             self.env['property.history'].create({
                 'user_id': self.env.uid,
                 'property_id': self.id,
                 'old_state': old_state,
                 'new_state': new_state,
+                'reason': reason,
             })
+    def action_open_change_state_wizard(self):
+        action = self.env.ref('app_one.change_state_wizard_action')
+        action = action.read()[0]  # Convert record to dict for return
+        action['context'] = {
+            'default_property_id': self.id,
+        }
+        return action
+
 
             
 

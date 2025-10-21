@@ -9,6 +9,7 @@
                 <field name="property_id" />
                 <field name="old_state" />
                 <field name="new_state" />
+                <field name="change_date" />
 
             </list>
         </field>
@@ -28,6 +29,7 @@
                         <group>
                             <field name="old_state" />
                             <field name="new_state" />
+                            <field name="reason" />
                         </group>
                     </group>
                 </sheet>

@@ -8,6 +8,7 @@
          'security/ir.model.access.csv',
          'data/sequence.xml',
          'reports/property_report.xml',
+         'wizard/change_state_wizard_view.xml',
          'views/base_menu.xml',
          'views/property_view.xml',
          'views/owner_view.xml',
