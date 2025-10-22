@@ -71,6 +71,8 @@
                             <field name="owner_adress" readonly="state == 'closed'" />
                             <field name="owner_phone" readonly="state == 'closed'" />
                             <field name="bedrooms" readonly="state == 'closed'" />
+                            <field name="create_date" readonly="1" />
+                            <field name="next_time" readonly="1" />
                             <field name="living_area" readonly="state == 'closed'" />
                             <field name="tag_ids" widget="many2many_tags"
                                 readonly="state == 'closed'" />

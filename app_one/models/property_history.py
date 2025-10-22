@@ -10,6 +10,14 @@ class PropertyHistory(models.Model):
     new_state = fields.Char()
     change_date = fields.Datetime(default=fields.Datetime.now)
     reason = fields.Char()
+    line_ids=fields.One2many('property.history.line','history_id')
 
 
 
+class PropertyHistoryLine(models.Model):
+    _name='property.history.line'
+    _description='Property history line'
+
+    history_id=fields.Many2one('property.history')
+    description=fields.Char()
+    area=fields.Float()

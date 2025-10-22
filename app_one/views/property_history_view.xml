@@ -32,6 +32,16 @@
                             <field name="reason" />
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Bedrooms">
+                            <field name="line_ids" readonly="1">
+                                <list >
+                                    <field name="description" />
+                                    <field name="area" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

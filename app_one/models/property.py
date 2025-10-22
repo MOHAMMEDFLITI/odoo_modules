@@ -1,4 +1,7 @@
 from odoo import models,fields,api
+from datetime import  timedelta
+
+
 
 class Property(models.Model):
     _name='property'
@@ -19,6 +22,8 @@ class Property(models.Model):
     facades = fields.Integer()
     garage = fields.Boolean()
     garden = fields.Boolean()
+    create_date = fields.Datetime(default=fields.Datetime.now)
+    next_time = fields.Datetime(compute = '_compute_next_time', store=True)
     garden_area = fields.Integer()
     garden_orientation = fields.Selection([
         ('north','North'),
@@ -117,6 +122,15 @@ class Property(models.Model):
             print("in _compute_diff method")    
             rec.diff = rec.expected_price - rec.sold_price
 
+    @api.depends('create_date')
+    def _compute_next_time(self):
+        for rec in self:
+          #  print("in _compute_next_time method")
+            if rec.create_date:
+                rec.next_time = rec.create_date + timedelta(days=3)
+            else:
+                rec.next_time = False
+                
     @api.onchange('garden')
     # onchange works only in views fields
     def _onchange_garden(self):
@@ -168,6 +182,10 @@ class Property(models.Model):
                 'old_state': old_state,
                 'new_state': new_state,
                 'reason': reason,
+                'line_ids': [(0,0,{'description':line.description,'area':line.area}) for line in self.line_ids] 
+                 # this called magic tuple : for managing records in One2many and Many2many relationships.
+                 # (0,0,{values}) to create one2many or many2many lines while creating the parent record
+                
             })
     def action_open_change_state_wizard(self):
         action = self.env.ref('app_one.change_state_wizard_action')
