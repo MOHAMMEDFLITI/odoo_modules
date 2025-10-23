@@ -30,7 +30,7 @@
               <field name="active" />
             </group>
             <group>
-              <field name="description" />
+              <field name="description" groups="app_one.property_manager_group" />
             </group>
           </group>
         </sheet>

@@ -35,7 +35,7 @@
                     <notebook>
                         <page string="Bedrooms">
                             <field name="line_ids" readonly="1">
-                                <list >
+                                <list>
                                     <field name="description" />
                                     <field name="area" />
                                 </list>
@@ -58,6 +58,7 @@
         id="properties_history_menu"
         name="History"
         parent="property_menu"
-        action="propertie_history_action" />
+        action="propertie_history_action"
+        groups="app_one.property_manager_group" />
 
 </odoo>

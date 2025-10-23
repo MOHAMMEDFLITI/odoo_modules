@@ -10,7 +10,8 @@
     <menuitem
         id="configuration_menu"
         name="Configuration"
-        parent="real_estate_root_menu" />
+        parent="real_estate_root_menu"
+        groups="app_one.property_manager_group" />
     <menuitem
         id="upgrade_app_menu"
         name="upgrade App One"

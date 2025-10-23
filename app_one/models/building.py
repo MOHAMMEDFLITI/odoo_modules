@@ -7,7 +7,7 @@ class building(models.Model):
     _rec_name = 'code' # bigger priority than name field
 
 
-    no = fields.Integer()
+    no = fields.Integer(groups="app_one.property_manager_group") # best then do it from view/xml because user cant accees py files
     code = fields.Char()
     description = fields.Text()
     name = fields.Char() # reserved field 
