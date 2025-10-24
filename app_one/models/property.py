@@ -163,9 +163,8 @@ class Property(models.Model):
         # print(self.env.uid)
         # print(self.env.cr)
         #print(self.env['owner'].search([]))
-        print(self.env['owner'].create({'name':'owner from env','phone':'123456'}))
-
-    
+       # print(self.env['owner'].create({'name':'owner from env','phone':'123456'}))
+       print(self.env['property'].search(['&',('name','=','P001'),('expected_price','>',50000)])) # par defautl AND between conditions  , "ilike" for case insensitive search  , & for AND , | for OR , ! for NOT  
     @api.model
     def create(self,vals):
         res = super(Property,self).create(vals)
