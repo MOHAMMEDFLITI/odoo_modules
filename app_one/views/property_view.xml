@@ -37,8 +37,9 @@
         <field name="arch" type="xml">
             <form create="true" edit="true" delete="0">
                 <sheet>
+                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active" /> <!-- but must active field be in model-->
+                     <widget name="web_ribbon" title="Sold" bg_color="text-bg-success" invisible="state != 'sold' " />
                     <header>
-
                         <button name="action" string="Action" type="object" class="btn-primary" />
                         <button name="action_draft" string="Set to Draft" type="object"
                             class="btn-primary" invisible=" state in ('draft','closed')" />

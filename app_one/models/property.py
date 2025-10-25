@@ -10,6 +10,7 @@ class Property(models.Model):
     name = fields.Char(required=True,default="new",size=5)
     descreption = fields.Text(tracking=True)
     postcode = fields.Char(required=True)
+    active = fields.Boolean(default=True)
     ref = fields.Char(default='nv',readonly=True)
     date_availability = fields.Date(tracking=True)
     expected_selling_date = fields.Date(required=True)
