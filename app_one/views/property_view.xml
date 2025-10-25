@@ -37,8 +37,14 @@
         <field name="arch" type="xml">
             <form create="true" edit="true" delete="0">
                 <sheet>
-                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active" /> <!-- but must active field be in model-->
-                     <widget name="web_ribbon" title="Sold" bg_color="text-bg-success" invisible="state != 'sold' " />
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_open_related_owner" type="object" icon="fa-user" string="Owner"
+                            invisible="not owner_id" />
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
+                        invisible="active" /> <!-- but must active field be in model-->
+                    <widget name="web_ribbon" title="Sold" bg_color="text-bg-success"
+                        invisible="state != 'sold' " />
                     <header>
                         <button name="action" string="Action" type="object" class="btn-primary" />
                         <button name="action_draft" string="Set to Draft" type="object"

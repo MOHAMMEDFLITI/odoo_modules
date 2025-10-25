@@ -194,6 +194,13 @@ class Property(models.Model):
             'default_property_id': self.id,
         }
         return action
+    
+    def action_open_related_owner(self):
+        action = self.env['ir.actions.actions']._for_xml_id('app_one.owner_action')
+        view_id = self.env.ref('app_one.owner_view_form').id
+        action['views'] = [(view_id, 'form')]
+        action['res_id'] = self.owner_id.id
+        return action
 
 
             
