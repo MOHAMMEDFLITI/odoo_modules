@@ -68,7 +68,7 @@
                     </div>
                     <group>
                         <group string="General Information">
-                            <field name="descreption" />
+                            <field name="descreption" readonly ="state != 'draft'"/>
                             <field name="postcode" readonly="state == 'closed'" />
                             <field name="date_availability" readonly="state == 'closed'" />
                             <field name="date_availability" readonly="state == 'closed'" />

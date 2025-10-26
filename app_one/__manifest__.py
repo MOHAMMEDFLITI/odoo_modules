@@ -3,7 +3,7 @@
      'author' : 'mohammed FLITI ',
      'category': 'realty',
      'version': '1.0',
-     'depends': ['base','sale_management','mail','contacts'],
+     'depends': ['base','sale_management','account','mail','contacts'],
      'data': [
          'security/ir.model.access.csv',
          'security/security.xml',
@@ -19,6 +19,7 @@
          'views/building.xml',
          'views/property_history_view.xml',
          'views/upgrade_app_view.xml',
+         'views/account_move_view.xml',
          
          
          
