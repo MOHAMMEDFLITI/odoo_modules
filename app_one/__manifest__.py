@@ -28,6 +28,9 @@
         'web.assets_backend': [
             'app_one/static/src/css/property.css',
         ],
+        'web.report_assets_common': [
+            'app_one/static/src/css/fonts.css',
+        ],
     },
     'application': True
 
