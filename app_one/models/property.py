@@ -7,7 +7,7 @@ class Property(models.Model):
     _name='property'
     _description='Property record'
     _inherit = ['mail.thread','mail.activity.mixin']
-    name = fields.Char(required=True,default="new",size=5)
+    name = fields.Char(required=True,default="new",size=18)
     descreption = fields.Text(tracking=True)
     postcode = fields.Char(required=True)
     active = fields.Boolean(default=True)
@@ -18,7 +18,7 @@ class Property(models.Model):
     expected_price = fields.Float(digits=(0,5))
     sold_price = fields.Float()
     diff = fields.Float(compute='_compute_diff', store=True ,readonly=0)
-    bedrooms = fields.Integer()
+    bedrooms = fields.Integer(required=True)
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
