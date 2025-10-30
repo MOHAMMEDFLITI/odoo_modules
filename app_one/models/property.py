@@ -7,7 +7,7 @@ class Property(models.Model):
     _name='property'
     _description='Property record'
     _inherit = ['mail.thread','mail.activity.mixin']
-    name = fields.Char(required=True,default="new",size=18)
+    name = fields.Char(required=True,default="new",size=18,translate =True)
     descreption = fields.Text(tracking=True)
     postcode = fields.Char(required=True)
     active = fields.Boolean(default=True)
