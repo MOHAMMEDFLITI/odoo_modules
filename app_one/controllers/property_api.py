@@ -1,6 +1,7 @@
 from odoo import http
 from odoo.http import request
 import json
+from urllib.parse import parse_qs
 
 
 class PropertyApi(http.Controller):
@@ -114,8 +115,20 @@ class PropertyApi(http.Controller):
     @http.route('/v1/app_one/get_properties', type='http', auth='none', methods=['GET'], csrf=False)
     def get_all_properties(self):
         try:
-            property_records = request.env['property'].sudo().search([])
+            params = parse_qs(request.httprequest.query_string.decode('utf-8'))
+          #  print('Received query parameters:', params)
+            
+            property_domain = []
+
+            if params.get('state'):
+                state = params.get('state')[0] # get first value from list
+                property_domain.append(('state', '=', state))
+          #  print('Search domain:', property_domain)
+
+            property_records = request.env['property'].sudo().search(property_domain)
+
             properties_data = []
+
             for property_record in property_records:
                 properties_data.append({
                     'id': property_record.id,
@@ -125,7 +138,9 @@ class PropertyApi(http.Controller):
                     'garden': property_record.garden,
                     'state': property_record.state,
                 })
+
             return request.make_json_response(properties_data, status=200)
+        
         except Exception as e:
             return request.make_json_response({
                 'error': 'Failed to get properties',
