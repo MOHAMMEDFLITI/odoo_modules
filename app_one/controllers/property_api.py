@@ -90,3 +90,21 @@ class PropertyApi(http.Controller):
                 'details': str(e)
                 }, status=400)
         
+    @http.route('/v1/app_one/property/<int:property_id>', type='http', auth='none', methods=['DELETE'], csrf=False)
+    def delete_property(self, property_id):
+        try:
+            property_record = request.env['property'].sudo().browse(property_id)
+            if not property_record.exists():
+                return request.make_json_response({
+                    'error': 'Property not found'
+                    }, status=404)
+            property_record.sudo().unlink()
+            return request.make_json_response({
+                'message': 'Property has been deleted successfully',
+                'property_id': property_id
+                }, status=200)
+        except Exception as e:
+            return request.make_json_response({
+                'error': 'Failed to delete property',
+                'details': str(e)
+                }, status=400)
