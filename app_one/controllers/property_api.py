@@ -65,3 +65,28 @@ class PropertyApi(http.Controller):
                 'error': 'Failed to update property',
                 'details': str(e)
                 }, status=400)
+        
+
+    @http.route('/v1/app_one/property/<int:property_id>', type='http', auth='none', methods=['GET'], csrf=False)
+    def get_property(self, property_id):
+        try :
+            property_record = request.env['property'].sudo().browse(property_id)
+            if not property_record.exists():
+                return request.make_json_response({
+                    'error': 'Property not found'
+                    }, status=404)
+            property_data = {
+                'id': property_record.id,
+                'name': property_record.name,
+                'expected_price': property_record.expected_price,
+                'bedrooms': property_record.bedrooms,
+                'garden': property_record.garden,
+                'state': property_record.state,
+            }
+            return request.make_json_response(property_data, status=200)
+        except Exception as e:
+            return request.make_json_response({
+                'error': 'Failed to get property',
+                'details': str(e)
+                }, status=400)
+        
