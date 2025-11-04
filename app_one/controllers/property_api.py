@@ -4,6 +4,19 @@ import json
 from urllib.parse import parse_qs
 
 
+def invalid_response(error, status):
+    response_body = {
+        'error': error
+    }
+    return request.make_json_response(response_body, status=status)
+
+
+def valid_response(data, status):
+    response_body = {
+        'message': 'Request processed successfully',
+        'data': data
+    }
+    return request.make_json_response(response_body, status=status)
 class PropertyApi(http.Controller):
     @http.route('/v1/app_one/create_property', type='http', auth='none', methods=['POST'], csrf=False)
     def post_property(self):
@@ -86,12 +99,9 @@ class PropertyApi(http.Controller):
                 'garden': property_record.garden,
                 'state': property_record.state,
             }
-            return request.make_json_response(property_data, status=200)
+            return valid_response(property_data, status=200)
         except Exception as e:
-            return request.make_json_response({
-                'error': 'Failed to get property',
-                'details': str(e)
-                }, status=400)
+            return invalid_response('Failed to get property: ' + str(e), status=400)
         
     @http.route('/v1/app_one/delete_property/<int:property_id>', type='http', auth='none', methods=['DELETE'], csrf=False)
     def delete_property(self, property_id):
