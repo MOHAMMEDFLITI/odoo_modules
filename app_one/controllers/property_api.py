@@ -11,11 +11,13 @@ def invalid_response(error, status):
     return request.make_json_response(response_body, status=status)
 
 
-def valid_response(data, status):
+def valid_response(data, status,pagination_info):
     response_body = {
         'message': 'Request processed successfully',
         'data': data
     }
+    if pagination_info:
+        response_body['pagination_info'] = pagination_info
     return request.make_json_response(response_body, status=status)
 class PropertyApi(http.Controller):
     @http.route('/v1/app_one/create_property', type='http', auth='none', methods=['POST'], csrf=False)
@@ -129,14 +131,26 @@ class PropertyApi(http.Controller):
           #  print('Received query parameters:', params)
             
             property_domain = []
+            limit =3
+            page = offset =None
+            if params:
+                if params.get('state'):
+                    state = params.get('state')[0] # get first value from list
+                    property_domain.append(('state', '=', state))
+            #  print('Search domain:', property_domain)
+                if params.get('limit'):
+                    limit = int(params.get('limit')[0])
+                # print(int(params.get('limit')[0]))
+                if params.get('page'):
+                    page = int(params.get('page')[0])
+                # print(params.get('page')[0])
+            if page and limit:
+                offset = (page - 1) * limit
 
-            if params.get('state'):
-                state = params.get('state')[0] # get first value from list
-                property_domain.append(('state', '=', state))
-          #  print('Search domain:', property_domain)
-
-            property_records = request.env['property'].sudo().search(property_domain)
-
+            property_records = request.env['property'].sudo().search(property_domain,offset=offset, limit=limit, order='id desc')
+            property_count = request.env['property'].sudo().search_count(property_domain)
+           # print(f'Found {property_count} properties matching the criteria.')
+            print(f'Returning {len(property_records)} properties (limit: {limit}, page: {page}, offset : {offset}).') 
             properties_data = []
 
             for property_record in property_records:
@@ -149,7 +163,12 @@ class PropertyApi(http.Controller):
                     'state': property_record.state,
                 })
 
-            return request.make_json_response(properties_data, status=200)
+            return valid_response(properties_data,pagination_info={
+                'total_properties': property_count,
+                'page': page if page else 1,
+                'limit': limit,
+                'pages' :( property_count// limit) if limit else 1
+            }, status=200)
         
         except Exception as e:
             return request.make_json_response({
