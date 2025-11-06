@@ -19,7 +19,9 @@ def valid_response(data, status,pagination_info):
     if pagination_info:
         response_body['pagination_info'] = pagination_info
     return request.make_json_response(response_body, status=status)
+
 class PropertyApi(http.Controller):
+
     @http.route('/v1/app_one/create_property', type='http', auth='none', methods=['POST'], csrf=False)
     def post_property(self):
         args = request.httprequest.data.decode()
@@ -173,5 +175,38 @@ class PropertyApi(http.Controller):
         except Exception as e:
             return request.make_json_response({
                 'error': 'Failed to get properties',
+                'details': str(e)
+                }, status=400)
+    
+    @http.route('/v1/app_one/create_property_using_query', type='http', auth='none', methods=['POST'], csrf=False)
+    def post_property(self):
+        args = request.httprequest.data.decode()
+        vals = json.loads(args)
+
+        if not vals.get('name'):
+            return request.make_json_response({
+                'error': 'Property name is required'
+                }, status=400)
+        try:
+            cr = request.env.cr
+            columns = ', '.join(vals.keys())
+            values = ', '.join(['%s'] * len(vals))
+            query = f"INSERT INTO property ({columns}) VALUES ({values}) RETURNING id, name, postcode, expected_selling_date, bedrooms"
+            cr.execute(query,(json.dumps(vals.get('name')), vals.get('postcode'), vals.get('expected_selling_date'), vals.get('bedrooms'))) # or tuple(vals.values())
+
+            res = cr.fetchone()
+            print(res)
+            if res:
+                return request.make_json_response({
+                    'message': 'property has been created successfully',
+                    'property_id': res[0],
+                    'property_name': res[1],
+                    'property_postcode': res[2],
+                    'property_expected_selling_date': str(res[3]),
+                    'property_bedrooms': res[4]
+                        }, status=201)
+        except Exception as e:
+            return request.make_json_response({
+                'error': 'Failed to create property',
                 'details': str(e)
                 }, status=400)
