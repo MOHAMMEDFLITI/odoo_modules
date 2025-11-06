@@ -1,5 +1,8 @@
 from odoo import models,fields,api
 from datetime import  timedelta
+import requests
+
+from odoo.exceptions import ValidationError
 
 
 
@@ -201,6 +204,19 @@ class Property(models.Model):
         action['views'] = [(view_id, 'form')]
         action['res_id'] = self.owner_id.id
         return action
+    
+    def action_fetch_properties(self):
+        url = "http://localhost:8069/v1/app_one/get_properties"
+        payload = {}
+        try:
+            response = requests.get(url,data=payload)
+            if response.status_code == 200:
+                print("data : ", response.json())
+            else:
+                print("Failed to fetch properties. Status code:", response.status_code)
+
+        except Exception as e:
+            raise ValidationError("Error fetching properties: %s" % str(e))
 
 
             

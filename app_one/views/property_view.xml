@@ -53,6 +53,8 @@
                             class="btn-secondary" invisible="state  !='draft' " />
                         <button name="action_sold" string="Set to Sold" type="object"
                             class="btn-success" invisible="state !='pending' " />
+                        <button name="action_fetch_properties" string="Test Call Get Properties" type="object"
+                            class="btn-info" />
                         <field name="state" widget="statusbar" statusbar="draft,pending,sold"
                             options="{'clickable':0}" />
                     </header>
