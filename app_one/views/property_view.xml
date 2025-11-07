@@ -6,7 +6,11 @@
         <field name="arch" type="xml">
             <list multi_edit="1" create="true" edit="true" delete="1" class="header_custom"
                 decoration-danger="(is_late)">
-                <field name="name" />
+                <header>
+                    <button name="property_xlsx_report" string="Print XLSX Report" type="object"
+                        class="btn-primary" />
+                </header>
+                <field name="name"/>
                 <field name="descreption" />
                 <field name="postcode" optional="1" />
                 <field name="is_late" invisible="1" />
@@ -38,7 +42,8 @@
             <form create="true" edit="true" delete="0">
                 <sheet>
                     <div name="button_box" class="oe_button_box">
-                        <button name="action_open_related_owner" type="object" icon="fa-user" string="Owner"
+                        <button name="action_open_related_owner" type="object" icon="fa-user"
+                            string="Owner"
                             invisible="not owner_id" />
                     </div>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger"
@@ -53,7 +58,8 @@
                             class="btn-secondary" invisible="state  !='draft' " />
                         <button name="action_sold" string="Set to Sold" type="object"
                             class="btn-success" invisible="state !='pending' " />
-                        <button name="action_fetch_properties" string="Test Call Get Properties" type="object"
+                        <button name="action_fetch_properties" string="Test Call Get Properties"
+                            type="object"
                             class="btn-info" />
                         <field name="state" widget="statusbar" statusbar="draft,pending,sold"
                             options="{'clickable':0}" />
@@ -70,7 +76,7 @@
                     </div>
                     <group>
                         <group string="General Information">
-                            <field name="descreption" readonly ="state != 'draft'"/>
+                            <field name="descreption" readonly="state != 'draft'" />
                             <field name="postcode" readonly="state == 'closed'" />
                             <field name="date_availability" readonly="state == 'closed'" />
                             <field name="date_availability" readonly="state == 'closed'" />

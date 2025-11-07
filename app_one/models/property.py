@@ -217,6 +217,13 @@ class Property(models.Model):
 
         except Exception as e:
             raise ValidationError("Error fetching properties: %s" % str(e))
+        
+    def property_xlsx_report(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/property/report/xlsx/{self.env.context.get("active_ids")}',
+            'target': 'new',
+        }
 
 
             
