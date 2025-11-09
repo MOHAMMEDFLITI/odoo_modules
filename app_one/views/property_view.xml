@@ -204,4 +204,16 @@
         parent="property_menu"
         action="propertie_action" />
 
+        <record id ="list_view_action" model = "ir.actions.client">
+            <field name="name">property list view</field>
+            <field name="tag">app_one.list_view_action</field>
+
+        </record>
+
+        <menuitem
+        id="property_list_view_menu"
+        name="properties OWL"
+        parent="property_menu"
+        action="list_view_action"/>
+
 </odoo>

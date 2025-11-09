@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<templates xml:space="http://www.w3.org/1999/xhtml" >
+    <t t-name="app_one.ListView">
+        <h1>
+            Hello World !
+        </h1>
+    </t>
+</templates>
