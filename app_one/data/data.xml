@@ -1,0 +1,24 @@
+ <!-- Creating Records by XML-->
+
+<odoo>
+    <data noupdate="1"> <!-- this to prevent updating data on module upgrade-->
+        <record id="property_01" model="property">
+            <field name="name">Property one</field>
+            <field name="bedrooms">5</field>
+            <field name="expected_selling_date">2025-12-13</field>
+            <field name="postcode">P545</field>
+
+
+        </record>
+        <record id="property_02" model="property">
+            <field name="name">Property two</field>
+            <field name="bedrooms">4</field>
+            <field name="expected_selling_date">2025-12-20</field>
+            <field name="postcode">P533</field>
+
+
+        </record>
+
+    </data>
+
+</odoo>
