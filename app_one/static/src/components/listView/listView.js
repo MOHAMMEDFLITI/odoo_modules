@@ -1,6 +1,6 @@
 /* @odoo-module */
 
-import { Component,useState } from "@odoo/owl";
+import { Component, useState, onWillUnmount } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { rpc } from "@web/core/network/rpc";
@@ -15,9 +15,16 @@ export class ListViewAction extends Component {
         this.state = useState({
             records: [],
         });
-       // this.orm = useService("orm");
+        // this.orm = useService("orm");
+
+        //this.loadRecords();
+        this.intervalId = setInterval(() => {
+            this.loadRecords();
+        }, 3000); // Refresh every 3 seconds
         
-        this.loadRecords();
+        onWillUnmount(() => {
+            clearInterval(this.intervalId);
+        });
     }
 
     // async loadRecords() {
@@ -27,12 +34,12 @@ export class ListViewAction extends Component {
     //     this.state.records = result;
     // }
 
-    async loadRecords() { 
-        const result = await rpc("/web/dataset/call_kw/",{
+    async loadRecords() {
+        const result = await rpc("/web/dataset/call_kw/", {
             model: "property",
             method: "search_read",
             args: [[]],
-            kwargs: {fields: ["id","name", "descreption", "postcode"]},
+            kwargs: { fields: ["id", "name", "descreption", "postcode"] },
         });
         console.log("Loaded records:", result);
         this.state.records = result;

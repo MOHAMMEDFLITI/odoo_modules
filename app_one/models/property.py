@@ -59,7 +59,7 @@ class Property(models.Model):
     @api.constrains('date_availability')
     def _check_date_av(self):
         for record in self:
-            if record.date_availability < fields.Date.today():
+            if record.date_availability and record.date_availability < fields.Date.today():
                 raise models.ValidationError("The date cannot be in the paste.")
 
     @api.model_create_multi
