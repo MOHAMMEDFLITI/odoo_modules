@@ -3,6 +3,10 @@
 
 <templates xml:space="preserve">
     <t t-name="app_one.ListView">
+        <h1>Properties List</h1>
+
+        <button class="btn btn-primary m-1 p-1" t-on-click="createRecord">Create property</button>
+
         <div class="table-responsive o_list_view">
             <table class="table table-sm o_list_table table-hover table-striped">
                 <thead>
@@ -10,6 +14,7 @@
                         <th class="o_list_column_header">Postcode</th>
                         <th class="o_list_column_header">Name</th>
                         <th class="o_list_column_header">Description</th>
+                        <th class="o_list_column_header">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -18,6 +23,7 @@
                             <td> <t t-esc ="record.postcode"/> </td>
                             <td> <t t-esc ="record.name"/> </td>
                             <td> <t t-esc ="record.descreption"/> </td>
+                            <td> <button class ="btn btn-danger" t-on-click="deleteRecord.bind(this,record.id)">Delete</button> </td>
                         </tr>
                     </t>
                 </tbody>

@@ -17,7 +17,6 @@ export class ListViewAction extends Component {
         });
         // this.orm = useService("orm");
 
-        //this.loadRecords();
         this.intervalId = setInterval(() => {
             this.loadRecords();
         }, 3000); // Refresh every 3 seconds
@@ -38,12 +37,54 @@ export class ListViewAction extends Component {
         const result = await rpc("/web/dataset/call_kw/", {
             model: "property",
             method: "search_read",
-            args: [[]],
-            kwargs: { fields: ["id", "name", "descreption", "postcode"] },
+            args: [[]], // No domain filter
+            kwargs: { fields: ["id", "name", "descreption", "postcode"] }, // Fields to retrieve
         });
         console.log("Loaded records:", result);
         this.state.records = result;
     }
+        // create record using orm
+
+    //     async createRecord() {
+    //     const newRecord = {
+    //         name: "CC",
+    //         descreption: "Description of CC",
+    //         postcode: "5300",
+    //         bedrooms: 5,
+    //         expected_selling_date: "2025-11-30",
+    //     };
+    //     await this.orm.create("property", [newRecord]);
+    //     this.loadRecords(); // Refresh the list after creating a new record
+    // }
+
+    // create record using rpc
+    async createRecord() {
+        const newRecord = {
+            name: "CC",
+            descreption: "Description of CC",
+            postcode: "5300",
+            bedrooms: 5,
+            expected_selling_date: "2025-11-30",
+        };
+        await rpc("/web/dataset/call_kw/", {
+            model: "property",
+            method: "create",
+            args: [newRecord],
+            kwargs: {},
+        });
+        this.loadRecords(); // Refresh the list after creating a new record
+    }
+
+    async deleteRecord(recordId) {
+        await rpc("/web/dataset/call_kw/", {
+            model: "property",
+            method: "unlink",
+            args: [recordId],
+            kwargs: {},
+        });
+        this.loadRecords(); // Refresh the list after deleting a record
+    }
+
 }
 
 registry.category("actions").add("app_one.list_view_action", ListViewAction);
