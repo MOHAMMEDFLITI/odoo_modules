@@ -5,7 +5,14 @@
     <t t-name="app_one.ListView">
         <h1>Properties List</h1>
 
-        <button class="btn btn-primary m-1 p-1" t-on-click="createRecord">Create property</button>
+        <button class="btn btn-primary m-1 p-1" t-on-click="toggleCreateForm">
+            <t t-if="!state.showCreateForm">Create</t>
+            <t t-else="" >Close</t>
+        </button>
+
+        <t t-if="state.showCreateForm">
+            <FormView/>
+        </t>
 
         <div class="table-responsive o_list_view">
             <table class="table table-sm o_list_table table-hover table-striped">

@@ -28,9 +28,12 @@
     'assets': {
         'web.assets_backend': [
             'app_one/static/src/css/property.css',
+            'app_one/static/src/components/formView/formView.js',
+            'app_one/static/src/components/formView/formView.xml',
+            'app_one/static/src/components/formView/formView.css',
+            'app_one/static/src/components/listView/listView.js',
             'app_one/static/src/components/listView/listView.xml',
             'app_one/static/src/components/listView/listView.css',
-            'app_one/static/src/components/listView/listView.js',
         ],
         'web.report_assets_common': [
             'app_one/static/src/css/fonts.css',

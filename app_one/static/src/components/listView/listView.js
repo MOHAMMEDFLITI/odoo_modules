@@ -4,11 +4,14 @@ import { Component, useState, onWillUnmount } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { rpc } from "@web/core/network/rpc";
+import { FormView } from "@app_one/components/formView/formView";
 
 export class ListViewAction extends Component {
-    // Component logic goes here
 
     static template = "app_one.ListView";
+    static components = { FormView };
+
+
     setup() { // OWL lifecycle method
         // this.records = [ //  { id: 1, name: "Record One", description: "This is the first record.", postcode: "12345" },
         // ]
@@ -20,7 +23,7 @@ export class ListViewAction extends Component {
         this.intervalId = setInterval(() => {
             this.loadRecords();
         }, 3000); // Refresh every 3 seconds
-        
+
         onWillUnmount(() => {
             clearInterval(this.intervalId);
         });
@@ -43,7 +46,7 @@ export class ListViewAction extends Component {
         console.log("Loaded records:", result);
         this.state.records = result;
     }
-        // create record using orm
+    // create record using orm
 
     //     async createRecord() {
     //     const newRecord = {
@@ -85,6 +88,10 @@ export class ListViewAction extends Component {
         this.loadRecords(); // Refresh the list after deleting a record
     }
 
+    toggleCreateForm() {
+        this.state.showCreateForm = !this.state.showCreateForm;
+        console.log("Create form toggled");
+    }
 }
 
 registry.category("actions").add("app_one.list_view_action", ListViewAction);
