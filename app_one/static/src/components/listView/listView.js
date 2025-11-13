@@ -17,6 +17,7 @@ export class ListViewAction extends Component {
         // ]
         this.state = useState({
             records: [],
+            showCreateForm: false,
         });
         // this.orm = useService("orm");
 
@@ -27,6 +28,9 @@ export class ListViewAction extends Component {
         onWillUnmount(() => {
             clearInterval(this.intervalId);
         });
+
+     //   this.onRecordCreated = this.onRecordCreated.bind(this); // 
+
     }
 
     // async loadRecords() {
@@ -91,6 +95,11 @@ export class ListViewAction extends Component {
     toggleCreateForm() {
         this.state.showCreateForm = !this.state.showCreateForm;
         console.log("Create form toggled");
+    }
+
+    onRecordCreated() {
+        this.loadRecords(); // Refresh the list after a new record is created
+        this.state.showCreateForm = false; // Hide the create form
     }
 }
 

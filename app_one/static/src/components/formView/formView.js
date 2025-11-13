@@ -11,6 +11,7 @@ export class FormView extends Component {
             name: "",
             description: "",
             postcode: "",
+            bedrooms: 0,
             expected_selling_date: "",
         });
 
@@ -30,16 +31,24 @@ export class FormView extends Component {
                 name: this.state.name,
                 descreption: this.state.description,
                 postcode: this.state.postcode,
+                bedrooms: parseInt(this.state.bedrooms) || 0,
                 expected_selling_date: this.state.expected_selling_date,
             }],
             kwargs: {},
         });
+        if (this.props.onRecordCreated) {
+            this.props.onRecordCreated();
+        }
     }
     cancel() {
         this.state.name = "";
         this.state.description = "";
         this.state.postcode = "";
+        this.state.bedrooms = 0;
         this.state.expected_selling_date = "";
+        if (this.props.onCancel) {
+            this.props.onCancel();
+        }
     }
 
 }

@@ -11,7 +11,7 @@
         </button>
 
         <t t-if="state.showCreateForm">
-            <FormView/>
+            <FormView onRecordCreated.bind="onRecordCreated" onCancel.bind ="toggleCreateForm"/> <!-- or toggleCreateForm.bind(this) : this == listView not formView-->
         </t>
 
         <div class="table-responsive o_list_view">
